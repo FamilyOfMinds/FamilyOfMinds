@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoM Modeler</title>
+    <!-- Embedded styles from style.css to allow loading via file:// protocol -->
+    <link rel="stylesheet" href="style.css" />
+
+  </head>
+  <body>
+    <!-- Top menu bar -->
+    <nav class="menu-bar">
+      <div class="menu-item">File
+        <div class="submenu">
+          <div class="submenu-item" id="newProject">New Project</div>
+          <div class="submenu-item" id="openJson">Open Project (JSON)</div>
+          <div class="submenu-item" id="saveJson">Save Project (JSON)</div>
+          <div class="submenu-item" id="exportPngMenu">Export as PNG</div>
+        </div>
+      </div>
+      <div class="menu-item">Edit
+        <div class="submenu">
+          <div class="submenu-item" id="undoBtn">Undo</div>
+          <div class="submenu-item" id="redoBtn">Redo</div>
+        </div>
+      </div>
+      <div class="menu-item">View
+        <div class="submenu">
+          <div class="submenu-item" id="togglePalette">Toggle Node Palette</div>
+          <div class="submenu-item" id="toggleInspector">Toggle Inspector Panel</div>
+        </div>
+      </div>
+    </nav>
+    <!-- Hidden file input for JSON upload -->
+    <input type="file" id="fileInput" accept=".json" style="display:none" />
+    <div class="app-container">
+      <!-- Component Palette -->
+      <aside class="sidebar palette" id="palette">
+        <h2>Components</h2>
+        <div class="palette-items">
+          <!-- Palette items will be generated dynamically by script.js -->
+        </div>
+        <div style="margin-top: 10px; font-size: 12px; color: #555;">
+          Edges: <span id="edgeCount">0</span>
+        </div>
+      </aside>
+      <!-- Main Canvas Area -->
+      <main class="canvas-container">
+        <!-- Canvas where nodes and edges are placed -->
+        <div id="canvas" class="canvas"></div>
+        <!-- SVG overlay for drawing edges -->
+        <svg id="edges-layer" class="edges-layer"></svg>
+        <!-- Canvas overlay for drawing edges as fallback when SVG lines are not visible -->
+        <canvas id="edgeCanvas" class="edges-canvas"></canvas>
+        <!-- Selection box for marquee -->
+        <div id="selectionBox" class="selection-box" style="display:none"></div>
+        <!-- Context menu for nodes -->
+        <div id="contextMenu">
+          <div class="ctx-item" data-action="delete">Delete Node</div>
+          <div class="ctx-item" data-action="duplicate">Duplicate Node</div>
+          <div class="ctx-item" data-action="manage-edges">View/Edit Edges</div>
+        </div>
+        <!-- Edge list modal -->
+        <div id="edgeModal">
+          <div class="edge-modal-header">
+            <h3>Edges</h3>
+            <div style="display:flex; gap:6px; align-items:center">
+              <button id="edgeModalMinimize" class="edge-modal-minimize" title="Minimize">_</button>
+              <button id="edgeModalMaximize" class="edge-modal-maximize" title="Toggle maximize">▢</button>
+              <button id="edgeModalClose" class="edge-modal-close">×</button>
+            </div>
+          </div>
+          <div id="edgeList"></div>
+          <div style="margin-top:8px; display:flex; gap:8px; align-items:center">
+            <div id="edgeAddTargetContainer" style="flex:1; position:relative">
+              <button id="edgeAddTargetBtn" style="width:100%; padding:6px; text-align:left; background:#fff; border:1px solid #ccc; cursor:pointer; border-radius:4px;">Select node...</button>
+              <div id="edgeAddTargetDropdown" style="position:absolute; top:100%; left:0; right:0; background:#fff; border:1px solid #ccc; border-top:none; max-height:200px; overflow-y:auto; display:none; z-index:3001;"></div>
+            </div>
+            <button id="edgeAddBtn">Add Edge</button>
+          </div>
+        </div>
+        <!-- Export Button -->
+        <button id="exportBtn" class="export-btn">Export to Image</button>
+            .edge-modal-minimize {
+              background: none;
+              border: none;
+              font-size: 16px;
+              cursor: pointer;
+              color: #666;
+              padding: 4px;
+              border-radius: 4px;
+              width: 28px;
+              height: 28px;
+              line-height: 16px;
+            }
+            .edge-modal-minimize:hover { background:#f5f5f5; color:#000 }
+            .modal-tray {
+              position: fixed;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              height: 44px;
+              background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%) !important;
+              border-top: 2px solid #0056b3;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              padding: 0 20px;
+              z-index: 4000;
+              box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+              transition: background 0.3s;
+            }
+            .modal-tray-tab {
+              background: #f8f9fa;
+              border: 1px solid #007bff;
+              color: #007bff;
+              border-radius: 6px 6px 0 0;
+              padding: 7px 18px;
+              cursor: pointer;
+              font-size: 15px;
+              margin-top: 6px;
+              box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+              transition: background 0.2s, color 0.2s;
+            }
+            .modal-tray-tab:hover {
+              background: #e3f0ff;
+              color: #0056b3;
+            }
+      </main>
+      <!-- Inspector Panel -->
+      <aside class="sidebar inspector" id="inspector">
+        <h2>Inspector</h2>
+        <!-- Tabs for Info and Code -->
+        <div class="inspector-tabs">
+          <button class="inspector-tab active" data-tab="info">Info</button>
+          <button class="inspector-tab" data-tab="code">Code</button>
+        </div>
+        <div class="inspector-section" id="inspectorInfo">
+          <label>
+            Name
+            <input type="text" id="nodeName" />
+          </label>
+          <label>
+            Description
+            <textarea id="nodeDesc" rows="3"></textarea>
+          </label>
+          <label>
+            Status
+            <select id="nodeStatus">
+              <option value="Planned">Planned</option>
+              <option value="In-Progress">In-Progress</option>
+              <option value="Complete">Complete</option>
+            </select>
+          </label>
+        </div>
+        <div class="inspector-section" id="inspectorCode" style="display:none">
+          <label>
+            Code
+            <textarea id="nodeCode" rows="6" style="width:100%"></textarea>
+          </label>
+        </div>
+      </aside>
+    </div>
+    <!-- Tray for minimized modals (moved outside canvas-container for visibility) -->
+    <div id="modalTray" class="modal-tray"></div>
+    <!-- Embedded script from script.js to avoid external file loading -->
+    <script src="script.js"></script>
+
+
+  </body>
+</html>

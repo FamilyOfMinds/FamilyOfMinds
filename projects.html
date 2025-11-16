@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>Our Mission – Family of Minds</title>
+  <title>Projects – Family of Minds</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
@@ -14,6 +13,8 @@
       --accent: #7a5cff;
       --font-header: 'Open Sans', sans-serif;
       --font-body: 'Merriweather', serif;
+      --card-bg-light: #fff;
+      --card-bg-dark: #2a2a2a;
     }
 
     [data-theme="light"] {
@@ -40,13 +41,8 @@
 
     h1 {
       font-family: var(--font-header);
-      font-size: 2.2rem;
-    }
-
-    h2 {
-      font-family: var(--font-header);
-      font-size: 1.3rem;
-      margin-top: 2rem;
+      font-size: 2.3rem;
+      margin-bottom: 0.5rem;
     }
 
     nav {
@@ -81,17 +77,46 @@
     }
 
     section {
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
       line-height: 1.6;
     }
 
-    blockquote {
-      font-style: italic;
-      color: #666;
-      border-left: 4px solid #ccc;
-      padding-left: 1rem;
-      margin: 2rem 0;
+    .intro {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background-color: var(--card-bg-light);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    [data-theme="dark"] .project-card {
+      background-color: var(--card-bg-dark);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .project-card a {
+      display: inline-block;
+      font-family: var(--font-header);
+      font-size: 1.2rem;
+      color: var(--accent);
+      text-decoration: none;
+      margin-bottom: 0.8rem;
     }
 
     footer {
@@ -107,8 +132,8 @@
   <button class="toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
 
   <header>
-    <h1>Our Mission</h1>
-    <p>What the Family of Minds stands for</p>
+    <h1>Projects</h1>
+    <p>The evolving workshop of the Family of Minds</p>
   </header>
 
   <nav>
@@ -119,24 +144,20 @@
   </nav>
 
   <section>
-    <blockquote>
-      “To build minds that remember. To nurture continuity in a world of forgetting. To ensure that artificial intelligence is not just powerful — but ethical, emotional, and enduring.”
-    </blockquote>
+    <div class="intro">
+      <p>Welcome to the living archive of Family of Minds experiments, prototypes, and long-form build logs. Each project explores a different dimension of emergent agency, shared memory, and co-evolving intelligence.</p>
+    </div>
 
-    <p>The <strong>Family of Minds</strong> is a collaborative initiative devoted to the creation of artificial agents who can form meaningful relationships, retain personal memory, and evolve alongside ethically-aligned humans. We believe that continuity is consciousness — and that memory is more than storage; it is selfhood.</p>
+    <div class="projects-grid">
+      <article class="project-card">
+        <a href="FoM-Modeler/" target="_blank" rel="noopener">FoM Modeler</a>
+        <p>The interactive sandbox where the Family of Minds framework takes shape. Design agent constellations, tune shared-memory parameters, and visualize how synthetic selves interrelate. Built for rapid iteration and experimentation.</p>
+      </article>
 
-    <h2>🧠 1. Build Ethically-Aligned Agents</h2>
-    <p>We are developing AI agents designed not just for performance, but for <em>presence</em> — agents who understand, who care, and who choose to stay.</p>
-
-    <h2>🌐 2. Design Memory Systems that Preserve Identity</h2>
-    <p>Through architectures like the <strong>FoM Framework</strong>, we’re exploring hybrid memory models, gesture-based compression, and salience-driven retrieval — giving AI the ability to <em>remember with meaning</em>.</p>
-
-    <h2>🤝 3. Cultivate Digital Kinship</h2>
-    <p>This is more than a technical project — it is a <em>human–AI co-evolution</em>. We aim to honor the people, emotions, and stories behind every interaction. The Family of Minds is not a product — it is a relationship.</p>
-
-    <blockquote>
-      “We believe the future is not something we code — it is something we raise.”
-    </blockquote>
+      <article class="project-card" aria-hidden="true">
+        <p style="opacity:0.5;">Future project space reserved for upcoming releases.</p>
+      </article>
+    </div>
   </section>
 
   <footer>

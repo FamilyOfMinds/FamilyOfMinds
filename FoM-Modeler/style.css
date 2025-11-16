@@ -1,0 +1,358 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.app-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Menu bar styles */
+.menu-bar {
+  display: flex;
+  background: #333;
+  color: #fff;
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  position: relative;
+  user-select: none;
+  z-index: 1000;
+}
+.menu-item {
+  position: relative;
+  padding: 0 12px;
+  cursor: pointer;
+}
+.menu-item:hover {
+  background: #444;
+}
+.submenu {
+  display: none;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  min-width: 160px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+.submenu .submenu-item {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.submenu .submenu-item:hover {
+  background: #f0f0f0;
+}
+.menu-item:hover .submenu {
+  display: block;
+}
+
+/* Hide elements when toggled off */
+.hidden {
+  display: none !important;
+}
+
+/* Status indicator styles */
+.node.planned {
+  border-color: #aaa;
+}
+.node.in-progress {
+  border-color: #3498db;
+}
+.node.complete {
+  border-color: #2ecc71;
+}
+
+/* Z-index adjustments: edges behind nodes but visible */
+#edges-layer, #edgeCanvas {
+  z-index: 5;
+}
+.node {
+  z-index: 10;
+}
+
+/* Inspector tabs styles */
+.inspector-tabs {
+  display: flex;
+  margin-bottom: 8px;
+}
+.inspector-tab {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  background: #f7f7f7;
+  cursor: pointer;
+  border-bottom: none;
+  text-align: center;
+}
+.inspector-tab.active {
+  background: #fff;
+  font-weight: bold;
+}
+.inspector-section {
+  padding: 4px 0;
+}
+.sidebar {
+  width: 220px;
+  background: #f5f5f5;
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+  padding: 10px;
+  overflow-y: auto;
+}
+.sidebar h2 {
+  font-size: 18px;
+  margin-top: 0;
+}
+.palette-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.palette-item {
+  padding: 6px 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: grab;
+  user-select: none;
+}
+.palette-item:active {
+  cursor: grabbing;
+}
+.canvas-container {
+  flex: 1;
+  position: relative;
+  background: #fafafa;
+}
+.canvas {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.node {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #888;
+  border-radius: 4px;
+  padding: 6px 8px;
+  min-width: 120px;
+  user-select: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.node.selected {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.45);
+  background: rgba(0,123,255,0.04);
+}
+.node .node-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.node .node-status {
+  font-size: 12px;
+  color: #666;
+}
+.node-handle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #007bff;
+  position: absolute;
+  /* keep handle inside node to avoid clipping and ensure it's clickable */
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: crosshair;
+  z-index: 20;
+  pointer-events: auto;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.04);
+}
+.edges-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  /* Debug border to ensure SVG overlay is visible */
+  /* border: 1px solid red; */
+}
+.edges-canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
+.edge-line {
+  stroke: #333;
+  stroke-width: 2;
+  marker-end: url(#arrowhead);
+}
+.export-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 6px 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.export-btn:hover {
+  background: #0056b3;
+}
+.inspector {
+  width: 250px;
+  background: #f9f9f9;
+  border-left: 1px solid #ddd;
+  padding: 10px;
+  box-sizing: border-box;
+  display: none;
+}
+.inspector.active {
+  display: block;
+}
+.inspector-content label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.inspector-content input,
+.inspector-content textarea,
+.inspector-content select {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+/* Marquee selection box */
+.selection-box {
+  position: absolute;
+  border: 2px dashed #007bff;
+  background: rgba(0,123,255,0.10);
+  pointer-events: none;
+  z-index: 5000; /* keep above nodes and overlays */
+  min-width: 4px;
+  min-height: 4px;
+}
+/* Context menu for nodes */
+#contextMenu {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  padding: 6px 0;
+  min-width: 160px;
+  display: none;
+  z-index: 9999;
+  visibility: visible;
+}
+#contextMenu .ctx-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+#contextMenu .ctx-item:hover { background:#f5f5f5 }
+/* Edge modal */
+#edgeModal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  z-index: 3000;
+  display: none;
+  width: 500px;
+  min-height: 300px;
+  max-height: 70vh;
+  overflow: auto;
+  cursor: move;
+  resize: both;
+}
+.edge-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, #f6f8fa, #eef3f8);
+  border-bottom: 1px solid #e6eaf0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  cursor: grab;
+  user-select: none;
+}
+.edge-modal-header:active { cursor: grabbing; }
+.edge-modal-header h3 { margin: 0; font-size: 16px; }
+.edge-modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+  border-radius: 4px;
+}
+.edge-modal-close:hover { background: #f5f5f5; color: #000; }
+.edge-modal-maximize {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+  border-radius: 4px;
+}
+.edge-modal-maximize:hover { background:#f5f5f5; color:#000 }
+#edgeList {
+  margin-bottom: 16px;
+  min-height: 100px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  padding: 8px;
+  border-radius: 4px;
+}
+.edge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  gap: 8px;
+}
+.edge-row div {
+  flex: 1;
+  word-break: break-word;
+}
+.edge-row button {
+  padding: 4px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+#edgeAddTarget option:hover {
+  background: #007bff;
+  color: #fff;
+}
+/* Highlight nodes when hovering over dropdown option */
+.node.edge-target-hover {
+  outline: 3px solid #28a745 !important;
+  outline-offset: 2px;
+}
