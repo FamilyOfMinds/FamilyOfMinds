@@ -157,7 +157,7 @@
             </div>
           </div>
           <div class="project-actions">
-            <a href="docs/rec-debt-clock-whitepaper.pdf" class="btn btn-primary" target="_blank" rel="noopener" download>White Paper &darr;</a>
+            <a href="docs/rec-debt-clock-whitepaper.pdf" class="btn btn-primary" onclick="return confirmDownload('REC Debt Clock White Paper', this.href)" target="_blank" rel="noopener" download>White Paper &darr;</a>
             <a href="https://github.com/FamilyOfMinds/rec-debt-clock" class="btn btn-outline" target="_blank" rel="noopener">GitHub &rarr;</a>
             <span class="btn btn-outline" style="cursor:default; opacity:0.45; justify-content:center;">Prototype Soon</span>
           </div>
@@ -175,20 +175,24 @@
         <div class="project-card inactive">
           <div class="project-body">
             <div class="project-header">
-              <h3>Algernon</h3>
+              <h3>Algernon Architecture</h3>
               <span class="badge badge-dev">In Development</span>
             </div>
             <p>
-              A memory-persistent AI agent built for ethical decision-making and identity continuity.
-              Algernon is the primary research platform for the Family of Minds' work on human-AI memory
-              architecture &mdash; exploring what it means for a system to remember with meaning rather
-              than merely with storage.
+              A cognitive architecture for persistent AI memory, designed to give AI systems the ability
+              to learn, remember, and develop over time. Rather than relying on ever-larger models, Algernon
+              pairs small, efficient models with a rich external memory infrastructure &mdash; hierarchical
+              storage, nightly consolidation cycles, compressed context pipelines, and trust-based governance.
+            </p>
+            <p>
+              The thesis: smarter architecture can outperform bigger parameters. Named after
+              <em>Flowers for Algernon</em>.
             </p>
             <div class="tech-stack">
-              <span class="tech-tag">Claude API</span>
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">Vector DB</span>
-              <span class="tech-tag">Custom Memory Layer</span>
+              <span class="tech-tag">Cloudflare Workers</span>
+              <span class="tech-tag">Vectorize</span>
+              <span class="tech-tag">D1</span>
+              <span class="tech-tag">OpenClaw</span>
             </div>
           </div>
           <div class="project-actions">
@@ -196,22 +200,29 @@
           </div>
         </div>
 
-        <!-- MemHub Framework -->
+        <!-- MemHub -->
         <div class="project-card inactive">
           <div class="project-body">
             <div class="project-header">
-              <h3>MemHub Framework</h3>
+              <h3>MemHub &mdash; Hierarchical Nested Vector Spaces</h3>
               <span class="badge badge-dev">In Development</span>
             </div>
             <p>
-              A hybrid memory architecture for AI systems &mdash; combining episodic, semantic, and
-              working memory layers with salience-driven retrieval. The framework underpins Algernon
-              and is being developed as a standalone system applicable across agent contexts.
+              Algernon's persistent memory core. Instead of dumping all memories into one flat vector
+              database, MemHub organizes knowledge into nested &ldquo;galaxies&rdquo; &mdash; top-level domains
+              like People, Projects, Research, and Finance that narrow exponentially into sub-domains before
+              fine-grained similarity search ever runs. Position in the hierarchy carries implicit context,
+              making retrieval faster and more precise.
+            </p>
+            <p>
+              Cross-domain connections are maintained through knowledge graph &ldquo;wormholes&rdquo; that bridge
+              otherwise unrelated concepts. MemHub is bidirectional &mdash; it serves both AI memory and
+              human memory.
             </p>
             <div class="tech-stack">
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">Embeddings</span>
-              <span class="tech-tag">Graph Memory</span>
+              <span class="tech-tag">Cloudflare Vectorize</span>
+              <span class="tech-tag">D1</span>
+              <span class="tech-tag">Embedding API</span>
             </div>
           </div>
           <div class="project-actions">
@@ -219,25 +230,40 @@
           </div>
         </div>
 
-        <!-- FoM Modeler -->
+      </div>
+
+      <!-- Planned -->
+      <span class="section-label" style="margin-top: 4rem; display:block;">Planned</span>
+      <h2>On the Horizon</h2>
+
+      <div class="projects-list" style="margin-top: 2rem;">
+
+        <!-- CompostCore -->
         <div class="project-card inactive">
           <div class="project-body">
             <div class="project-header">
-              <h3>FoM Modeler</h3>
-              <span class="badge badge-dev">In Development</span>
+              <h3>CompostCore &mdash; ORC Bio Engine</h3>
+              <span class="badge badge-planned">Planned</span>
             </div>
             <p>
-              An interactive visual sandbox for designing agent constellations, tuning shared-memory
-              parameters, and diagramming the data flows of the Family of Minds architecture. Built
-              for rapid iteration and architectural planning.
+              An environmental energy project exploring thermoelectric power generation from organic
+              decomposition. The concept uses thermoelectric generators (TEGs) embedded in compost or
+              landfill material to convert waste heat into electricity &mdash; a dual benefit: extracting
+              usable energy while simultaneously reducing decomposition temperatures, which may decrease
+              methane emissions.
+            </p>
+            <p>
+              The project begins with a backyard-scale prototype and targets municipal landfill applications
+              at scale.
             </p>
             <div class="tech-stack">
-              <span class="tech-tag">JavaScript</span>
-              <span class="tech-tag">Canvas / SVG</span>
+              <span class="tech-tag">Thermoelectric Generation</span>
+              <span class="tech-tag">Clean Energy</span>
+              <span class="tech-tag">Waste Reduction</span>
             </div>
           </div>
           <div class="project-actions">
-            <a href="FoM-Modeler/" class="btn btn-outline" target="_blank" rel="noopener">Open &rarr;</a>
+            <span class="btn btn-outline" style="cursor:default; opacity:0.45; justify-content:center;">Early Stage</span>
           </div>
         </div>
 

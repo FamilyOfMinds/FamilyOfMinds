@@ -77,13 +77,48 @@
       pointer-events: none;
     }
 
+    /* Inline PDF viewer */
+    .pdf-viewer-wrap {
+      display: none;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      grid-column: 1 / -1;
+    }
+    .pdf-viewer-wrap iframe {
+      width: 100%;
+      height: 780px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #1a1a1a;
+    }
+    .pdf-viewer-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.6rem;
+    }
+    /* Make featured card grid wrap for the viewer row */
+    .paper-card.featured {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      gap: 2rem;
+      align-items: start;
+    }
+
     @media (max-width: 640px) {
       .paper-card {
+        grid-template-columns: 1fr;
+      }
+      .paper-card.featured {
         grid-template-columns: 1fr;
       }
       .paper-actions {
         flex-direction: row;
         min-width: auto;
+      }
+      .pdf-viewer-wrap iframe {
+        height: 480px;
       }
     }
   </style>
@@ -136,10 +171,33 @@
             </p>
           </div>
           <div class="paper-actions">
-            <a href="docs/rec-debt-clock-whitepaper.pdf" class="btn btn-primary" target="_blank" rel="noopener" download>
+            <button
+              class="btn btn-outline"
+              onclick="togglePdfViewer('rec-pdf-viewer', this)"
+              style="width:100%;">
+              Read Online &#8599;
+            </button>
+            <a
+              href="docs/rec-debt-clock-whitepaper.pdf"
+              class="btn btn-primary"
+              onclick="return confirmDownload('The National REC Debt Clock White Paper', this.href)"
+              style="justify-content:center;">
               Download PDF &darr;
             </a>
-            <a href="projects.html#rec-clock" class="btn btn-outline">View Project &rarr;</a>
+            <a href="projects.html#rec-clock" class="btn btn-outline" style="justify-content:center;">View Project &rarr;</a>
+          </div>
+
+          <!-- Inline PDF viewer — hidden by default -->
+          <div class="pdf-viewer-wrap" id="rec-pdf-viewer">
+            <iframe
+              src="docs/rec-debt-clock-whitepaper.pdf"
+              title="The National REC Debt Clock White Paper"
+              loading="lazy">
+            </iframe>
+            <p class="pdf-viewer-note">
+              Having trouble viewing?
+              <a href="docs/rec-debt-clock-whitepaper.pdf" onclick="return confirmDownload('The National REC Debt Clock White Paper', this.href)">Download the PDF</a> instead.
+            </p>
           </div>
         </div>
 
