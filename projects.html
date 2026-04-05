@@ -1,186 +1,261 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Projects – Family of Minds</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects &mdash; Family of Minds</title>
+  <meta name="description" content="Active research projects and prototypes from the Family of Minds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
   <style>
-    :root {
-      --bg-light: #f9f8f6;
-      --text-light: #222;
-      --bg-dark: #1c1c1c;
-      --text-dark: #e0e0e0;
-      --accent: #7a5cff;
-      --font-header: 'Open Sans', sans-serif;
-      --font-body: 'Merriweather', serif;
-      --card-bg-light: #fff;
-      --card-bg-dark: #2a2a2a;
+    .page-hero {
+      padding: 5rem 0 3.5rem;
+      border-bottom: 1px solid var(--border);
     }
+    .page-hero h1 { margin-bottom: 0.75rem; }
+    .page-hero p  { color: var(--text-muted); font-size: 1.05rem; max-width: 520px; }
 
-    [data-theme="light"] {
-      background-color: var(--bg-light);
-      color: var(--text-light);
-    }
-
-    [data-theme="dark"] {
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-    }
-
-    body {
-      font-family: var(--font-body);
-      margin: 0;
-      padding: 2rem;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    h1 {
-      font-family: var(--font-header);
-      font-size: 2.3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    nav {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: inherit;
-      font-weight: bold;
-      border-bottom: 2px solid transparent;
-    }
-
-    nav a:hover {
-      border-bottom: 2px solid var(--accent);
-    }
-
-    .toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      border: none;
-      background-color: var(--accent);
-      color: white;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-
-    section {
-      max-width: 900px;
-      margin: auto;
-      line-height: 1.6;
-    }
-
-    .intro {
-      margin-bottom: 2.5rem;
-      text-align: center;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 2.5rem;
     }
 
     .project-card {
-      background-color: var(--card-bg-light);
-      border-radius: 10px;
-      padding: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.25rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2.5rem;
+      align-items: start;
+      transition: border-color 0.2s;
     }
+    .project-card:hover { border-color: #3a3a3a; }
+    .project-card.featured { border-color: var(--accent); }
 
-    [data-theme="dark"] .project-card {
-      background-color: var(--card-bg-dark);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    .project-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+      flex-wrap: wrap;
     }
+    .project-header h3 { font-size: 1.25rem; }
 
-    .project-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .project-card a {
-      display: inline-block;
-      font-family: var(--font-header);
-      font-size: 1.2rem;
-      color: var(--accent);
-      text-decoration: none;
-      margin-bottom: 0.8rem;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-style: italic;
+    .project-body p {
       font-size: 0.9rem;
-      opacity: 0.7;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 640px;
+    }
+    .project-body p + p { margin-top: 0.75rem; }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+    }
+    .tech-tag {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      min-width: 148px;
+    }
+    .project-actions .btn { justify-content: center; }
+
+    /* Dim inactive projects slightly */
+    .project-card.inactive { opacity: 0.6; }
+    .project-card.inactive:hover { opacity: 0.75; border-color: #3a3a3a; }
+
+    @media (max-width: 700px) {
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+      .project-actions {
+        flex-direction: row;
+        min-width: auto;
+        flex-wrap: wrap;
+      }
     }
   </style>
 </head>
 <body>
-  <button class="toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
 
-  <header>
-    <h1>Projects</h1>
-    <p>The evolving workshop of the Family of Minds</p>
-  </header>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="docs/">Docs</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Family <span>of Minds</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="blog/index.html">Blog</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <section>
-    <div class="intro">
-      <p>Welcome to the living archive of Family of Minds experiments, prototypes, and long-form build logs. Each project explores a different dimension of emergent agency, shared memory, and co-evolving intelligence.</p>
+  <div class="page-hero">
+    <div class="container">
+      <span class="section-label">Projects</span>
+      <h1>What we're building</h1>
+      <p>Prototypes, tools, and research platforms — each producing something real before it produces a paper.</p>
     </div>
+  </div>
 
-    <div class="projects-grid">
-      <article class="project-card">
-        <a href="FoM-Modeler/" target="_blank" rel="noopener">FoM Modeler</a>
-        <p>The interactive sandbox where the Family of Minds framework takes shape. Design agent constellations, tune shared-memory parameters, and visualize how synthetic selves interrelate. Built for rapid iteration and experimentation.</p>
-      </article>
+  <section>
+    <div class="container">
 
-      <article class="project-card" aria-hidden="true">
-        <p style="opacity:0.5;">Future project space reserved for upcoming releases.</p>
-      </article>
+      <span class="section-label">Active</span>
+      <h2>Current Work</h2>
+
+      <div class="projects-list">
+
+        <!-- REC Debt Clock -->
+        <div class="project-card featured" id="rec-clock">
+          <div class="project-body">
+            <div class="project-header">
+              <h3>National REC Debt Clock</h3>
+              <span class="badge badge-active">Active</span>
+            </div>
+            <p>
+              A near real-time public visualization of America's clean energy deficit. The clock calculates
+              the running gap between total U.S. electricity consumed &mdash; sourced from EIA daily balancing
+              authority data &mdash; and total Renewable Energy Certificates retired across regional tracking
+              registries (WREGIS, M-RETS, EPA GATS).
+            </p>
+            <p>
+              The deficit is calculated from January 1, 2015 onward, a date chosen to coincide with the
+              maturation of the modern REC market and the Paris Agreement baseline year. Historical annual
+              figures provide a static offset; live EIA data ticks the clock forward in real time, interpolating
+              between API fetches so the number never stands still.
+            </p>
+            <p>
+              Modeled on the National Debt Clock. Built for the same reason: a problem that is invisible
+              cannot be solved.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-tag">Cloudflare Workers</span>
+              <span class="tech-tag">Cloudflare Pages</span>
+              <span class="tech-tag">EIA API</span>
+              <span class="tech-tag">HTML / CSS / JS</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="docs/rec-debt-clock-whitepaper.pdf" class="btn btn-primary" target="_blank" rel="noopener" download>White Paper &darr;</a>
+            <a href="https://github.com/FamilyOfMinds/rec-debt-clock" class="btn btn-outline" target="_blank" rel="noopener">GitHub &rarr;</a>
+            <span class="btn btn-outline" style="cursor:default; opacity:0.45; justify-content:center;">Prototype Soon</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- In Development -->
+      <span class="section-label" style="margin-top: 4rem; display:block;">In Development</span>
+      <h2>Coming Next</h2>
+
+      <div class="projects-list" style="margin-top: 2rem;">
+
+        <!-- Algernon -->
+        <div class="project-card inactive">
+          <div class="project-body">
+            <div class="project-header">
+              <h3>Algernon</h3>
+              <span class="badge badge-dev">In Development</span>
+            </div>
+            <p>
+              A memory-persistent AI agent built for ethical decision-making and identity continuity.
+              Algernon is the primary research platform for the Family of Minds' work on human-AI memory
+              architecture &mdash; exploring what it means for a system to remember with meaning rather
+              than merely with storage.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-tag">Claude API</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Vector DB</span>
+              <span class="tech-tag">Custom Memory Layer</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/FamilyOfMinds/Algernon" class="btn btn-outline" target="_blank" rel="noopener">GitHub &rarr;</a>
+          </div>
+        </div>
+
+        <!-- MemHub Framework -->
+        <div class="project-card inactive">
+          <div class="project-body">
+            <div class="project-header">
+              <h3>MemHub Framework</h3>
+              <span class="badge badge-dev">In Development</span>
+            </div>
+            <p>
+              A hybrid memory architecture for AI systems &mdash; combining episodic, semantic, and
+              working memory layers with salience-driven retrieval. The framework underpins Algernon
+              and is being developed as a standalone system applicable across agent contexts.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Embeddings</span>
+              <span class="tech-tag">Graph Memory</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <span class="btn btn-outline" style="cursor:default; opacity:0.45; justify-content:center;">Coming Soon</span>
+          </div>
+        </div>
+
+        <!-- FoM Modeler -->
+        <div class="project-card inactive">
+          <div class="project-body">
+            <div class="project-header">
+              <h3>FoM Modeler</h3>
+              <span class="badge badge-dev">In Development</span>
+            </div>
+            <p>
+              An interactive visual sandbox for designing agent constellations, tuning shared-memory
+              parameters, and diagramming the data flows of the Family of Minds architecture. Built
+              for rapid iteration and architectural planning.
+            </p>
+            <div class="tech-stack">
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Canvas / SVG</span>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="FoM-Modeler/" class="btn btn-outline" target="_blank" rel="noopener">Open &rarr;</a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <footer>
-    This mind remembers you.
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>&copy; 2026 Family of Minds. All rights reserved.</span>
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="docs.html">Docs</a>
+        <a href="https://github.com/FamilyOfMinds" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
   </footer>
 
-  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      const current = html.getAttribute("data-theme");
-      const next = current === "light" ? "dark" : "light";
-      html.setAttribute("data-theme", next);
-      document.querySelector(".toggle").textContent = next === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
-      localStorage.setItem("theme", next);
-    }
-
-    (function () {
-      const saved = localStorage.getItem("theme");
-      if (saved) {
-        document.documentElement.setAttribute("data-theme", saved);
-        document.querySelector(".toggle").textContent = saved === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
-      }
-    })();
-  </script>
+  <script src="assets/script.js"></script>
 </body>
 </html>

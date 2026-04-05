@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog &mdash; Family of Minds</title>
+  <meta name="description" content="Notes, updates, and long-form writing from the Family of Minds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .page-hero {
+      padding: 5rem 0 3.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-hero h1 { margin-bottom: 0.75rem; }
+    .page-hero p  { color: var(--text-muted); font-size: 1.05rem; max-width: 520px; }
+
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 2.5rem;
+    }
+
+    .post-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 2rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      text-decoration: none;
+      transition: none;
+    }
+    .post-item:first-child { border-top: 1px solid var(--border); }
+    .post-item:hover .post-title { color: var(--accent); }
+
+    .post-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding-top: 0.2rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .post-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+      transition: color 0.2s;
+      line-height: 1.35;
+    }
+
+    .post-excerpt {
+      font-size: 0.855rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: 5rem 0;
+      text-align: center;
+    }
+    .empty-state h3 {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .empty-state p {
+      font-size: 0.875rem;
+      color: #555;
+    }
+
+    @media (max-width: 500px) {
+      .post-item { grid-template-columns: 1fr; gap: 0.35rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">Family <span>of Minds</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../projects.html">Projects</a></li>
+        <li><a href="../docs.html">Docs</a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="container">
+      <span class="section-label">Blog</span>
+      <h1>Notes &amp; Updates</h1>
+      <p>Long-form writing, build logs, and research notes from ongoing Family of Minds work.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+
+      <!-- Add post items here as: -->
+      <!--
+      <div class="post-list">
+        <a href="posts/post-slug.html" class="post-item">
+          <span class="post-date">Apr 5, 2026</span>
+          <div>
+            <div class="post-title">Post title here</div>
+            <div class="post-excerpt">A brief excerpt or summary of the post content.</div>
+          </div>
+        </a>
+      </div>
+      -->
+
+      <div class="empty-state">
+        <h3>No posts yet.</h3>
+        <p>Check back soon &mdash; first entries coming with the REC Clock prototype launch.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>&copy; 2026 Family of Minds. All rights reserved.</span>
+      <nav class="footer-links">
+        <a href="../about.html">About</a>
+        <a href="../docs.html">Docs</a>
+        <a href="https://github.com/FamilyOfMinds" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../assets/script.js"></script>
+</body>
+</html>

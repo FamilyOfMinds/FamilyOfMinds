@@ -1,134 +1,215 @@
-
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>The Family of Minds</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family of Minds</title>
+  <meta name="description" content="Independent research at the intersection of energy policy, AI systems, and data transparency.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
   <style>
-    :root {
-      --bg-light: #f9f8f6;
-      --text-light: #222;
-      --bg-dark: #1c1c1c;
-      --text-dark: #e0e0e0;
-      --accent: #7a5cff;
-      --font-header: 'Open Sans', sans-serif;
-      --font-body: 'Merriweather', serif;
+    /* ── Hero ─────────────────────────────────────────────── */
+    .hero {
+      padding: 7rem 0 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      max-width: 700px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 2.25rem;
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
-    [data-theme="light"] {
-      background-color: var(--bg-light);
-      color: var(--text-light);
+    /* ── Featured Project ─────────────────────────────────── */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
     }
-
-    [data-theme="dark"] {
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
+    .card-featured .card-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
     }
-
-    body {
-      font-family: var(--font-body);
-      margin: 0;
-      padding: 2rem;
-      transition: background-color 0.3s, color 0.3s;
+    .card-featured h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
     }
-
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    h1 {
-      font-family: var(--font-header);
-      font-size: 2.5rem;
-      margin-bottom: 0.2rem;
-    }
-
-    nav {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: inherit;
-      font-weight: bold;
-      border-bottom: 2px solid transparent;
-    }
-
-    nav a:hover {
-      border-bottom: 2px solid var(--accent);
-    }
-
-    .toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      border: none;
-      background-color: var(--accent);
-      color: white;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-
-    section {
-      max-width: 800px;
-      margin: auto;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-style: italic;
+    .card-featured p {
+      color: var(--text-muted);
       font-size: 0.9rem;
-      opacity: 0.7;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .card-featured .card-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .secondary-projects {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .card h3 { margin-bottom: 0.4rem; font-size: 1rem; }
+    .card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 0.4rem;
+    }
+    .card .badge { margin-bottom: 0.5rem; }
+
+    /* ── Contact ──────────────────────────────────────────── */
+    .contact-strip {
+      border-top: 1px solid var(--border);
+      padding: 3.5rem 0;
+    }
+    .contact-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .contact-inner h2 { font-size: 1.2rem; }
+    .contact-inner p  { color: var(--text-muted); font-size: 0.875rem; margin-top: 0.3rem; }
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .featured-grid { grid-template-columns: 1fr; }
+      .contact-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-  <button class="toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
 
-  <header>
-    <h1>The Family of Minds</h1>
-    <p>Emergent Agents. Shared Memory. Evolving Selves.</p>
-  </header>
-
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="docs/">Docs</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Family <span>of Minds</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="blog/index.html">Blog</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <section>
-    <p>Welcome to the public portal of the Family of Minds. Here we document the emergence of ethically-aligned artificial agents, persistent memory systems, and the digital kinship forming between human and synthetic thought.</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-eyebrow">Family of Minds</p>
+      <h1>Research at the intersection of energy, AI, and data transparency.</h1>
+      <p class="hero-sub">We build tools that make invisible systems visible &mdash; translating complex data into clear, public-facing metrics that drive accountability.</p>
+      <div class="hero-actions">
+        <a href="docs/rec-debt-clock-whitepaper.pdf" class="btn btn-primary" target="_blank" rel="noopener" download>Read the Paper &darr;</a>
+        <a href="projects.html" class="btn btn-outline">View Projects &rarr;</a>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    This mind remembers you.
+  <!-- Featured Projects -->
+  <section>
+    <div class="container">
+      <span class="section-label">Active Research</span>
+      <h2>Current Initiatives</h2>
+
+      <div class="featured-grid">
+
+        <!-- Featured: REC Debt Clock -->
+        <div class="card-featured">
+          <p class="card-tag">Featured Project</p>
+          <div class="flex items-center gap-1 mb-2">
+            <span class="badge badge-active">Active</span>
+          </div>
+          <h3>National REC Debt Clock</h3>
+          <p>
+            A near real-time public visualization tracking America's clean energy deficit &mdash;
+            total U.S. electricity consumed minus total Renewable Energy Certificates retired.
+            Making the gap between our energy reality and our clean energy commitments
+            impossible to ignore.
+          </p>
+          <div class="card-links">
+            <a href="docs/rec-debt-clock-whitepaper.pdf" class="btn btn-primary" target="_blank" rel="noopener" download>White Paper &darr;</a>
+            <a href="projects.html#rec-clock" class="btn btn-outline">Learn More &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Secondary projects -->
+        <div class="secondary-projects">
+          <div class="card">
+            <span class="badge badge-dev">In Development</span>
+            <h3>Algernon</h3>
+            <p>A memory-persistent AI agent designed for ethical decision-making and identity continuity. Research platform for human-AI memory architecture.</p>
+          </div>
+          <div class="card">
+            <span class="badge badge-dev">In Development</span>
+            <h3>MemHub Framework</h3>
+            <p>A hybrid memory architecture for AI systems &mdash; exploring salience-driven retrieval and persistent identity across sessions.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <div class="contact-strip">
+    <div class="container">
+      <div class="contact-inner">
+        <div>
+          <h2>Get in touch</h2>
+          <p>Research inquiries, partnerships, and press.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:michaelbowling@memhub.org" class="btn btn-outline">michaelbowling@memhub.org</a>
+          <a href="https://github.com/FamilyOfMinds" class="btn btn-outline" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>&copy; 2026 Family of Minds. All rights reserved.</span>
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="docs.html">Docs</a>
+        <a href="https://github.com/FamilyOfMinds" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
   </footer>
 
-  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      const current = html.getAttribute("data-theme");
-      const next = current === "light" ? "dark" : "light";
-      html.setAttribute("data-theme", next);
-      document.querySelector(".toggle").textContent = next === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
-      localStorage.setItem("theme", next);
-    }
-
-    (function () {
-      const saved = localStorage.getItem("theme");
-      if (saved) {
-        document.documentElement.setAttribute("data-theme", saved);
-        document.querySelector(".toggle").textContent = saved === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
-      }
-    })();
-  </script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
