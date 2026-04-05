@@ -15,112 +15,6 @@
     }
     .page-hero h1 { margin-bottom: 0.75rem; }
     .page-hero p  { color: var(--text-muted); font-size: 1.05rem; max-width: 520px; }
-
-    .papers-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-
-    .paper-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: start;
-      transition: border-color 0.2s;
-    }
-    .paper-card:hover { border-color: #3a3a3a; }
-    .paper-card.featured { border-color: var(--accent); }
-
-    .paper-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-      flex-wrap: wrap;
-    }
-    .paper-date {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-    .paper-card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 0.6rem;
-      line-height: 1.3;
-    }
-    .paper-card .abstract {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 680px;
-    }
-    .paper-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      min-width: 140px;
-      align-items: stretch;
-    }
-    .paper-actions .btn {
-      justify-content: center;
-      text-align: center;
-    }
-
-    /* Coming soon / placeholder */
-    .paper-card.coming-soon {
-      opacity: 0.45;
-      pointer-events: none;
-    }
-
-    /* Inline PDF viewer */
-    .pdf-viewer-wrap {
-      display: none;
-      margin-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
-      grid-column: 1 / -1;
-    }
-    .pdf-viewer-wrap iframe {
-      width: 100%;
-      height: 780px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: #1a1a1a;
-    }
-    .pdf-viewer-note {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 0.6rem;
-    }
-    /* Make featured card grid wrap for the viewer row */
-    .paper-card.featured {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      grid-template-rows: auto auto;
-      gap: 2rem;
-      align-items: start;
-    }
-
-    @media (max-width: 640px) {
-      .paper-card {
-        grid-template-columns: 1fr;
-      }
-      .paper-card.featured {
-        grid-template-columns: 1fr;
-      }
-      .paper-actions {
-        flex-direction: row;
-        min-width: auto;
-      }
-      .pdf-viewer-wrap iframe {
-        height: 480px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -153,55 +47,10 @@
 
       <div class="papers-list">
 
-        <!-- REC Debt Clock Paper -->
-        <div class="paper-card featured">
-          <div>
-            <div class="paper-meta">
-              <span class="badge badge-active">Published</span>
-              <span class="paper-date">2026 &mdash; Family of Minds</span>
-            </div>
-            <h3>The National REC Debt Clock: Making Our Clean Energy Deficit Visible</h3>
-            <p class="abstract">
-              We propose the National REC Debt Clock, a near real-time public visualization that translates
-              America's clean energy deficit into a single, tangible number. Using a straightforward formula
-              &mdash; total U.S. electricity consumed (EIA) minus total RECs retired (regional registries) &mdash;
-              the clock makes an invisible crisis undeniable. This paper details the methodology, data sourcing,
-              and the case for why data visceralization is a necessary tool for public accountability in the
-              energy transition, particularly in the context of AI-driven electricity demand growth.
-            </p>
-          </div>
-          <div class="paper-actions">
-            <button
-              class="btn btn-outline"
-              onclick="togglePdfViewer('rec-pdf-viewer', this)"
-              style="width:100%;">
-              Read Online &#8599;
-            </button>
-            <a
-              href="docs/rec-debt-clock-whitepaper.pdf"
-              class="btn btn-primary"
-              onclick="return confirmDownload('The National REC Debt Clock White Paper', this.href)"
-              style="justify-content:center;">
-              Download PDF &darr;
-            </a>
-            <a href="projects.html#rec-clock" class="btn btn-outline" style="justify-content:center;">View Project &rarr;</a>
-          </div>
+        <!-- Drop any paper ID here and it renders automatically -->
+        <div data-paper="rec-clock"></div>
 
-          <!-- Inline PDF viewer — hidden by default -->
-          <div class="pdf-viewer-wrap" id="rec-pdf-viewer">
-            <iframe
-              src="docs/rec-debt-clock-whitepaper.pdf"
-              title="The National REC Debt Clock White Paper"
-              loading="lazy">
-            </iframe>
-            <p class="pdf-viewer-note">
-              Having trouble viewing?
-              <a href="docs/rec-debt-clock-whitepaper.pdf" onclick="return confirmDownload('The National REC Debt Clock White Paper', this.href)">Download the PDF</a> instead.
-            </p>
-          </div>
-        </div>
-
-        <!-- Placeholder: Algernon -->
+        <!-- Placeholder: Algernon (not yet in papers.js — shown statically until ready) -->
         <div class="paper-card coming-soon">
           <div>
             <div class="paper-meta">
@@ -214,7 +63,7 @@
             </p>
           </div>
           <div class="paper-actions">
-            <span class="btn btn-outline" style="justify-content:center; cursor:default; opacity:0.5;">Coming Soon</span>
+            <span class="btn btn-outline" style="cursor:default;opacity:0.5;">Coming Soon</span>
           </div>
         </div>
 
@@ -231,7 +80,7 @@
             </p>
           </div>
           <div class="paper-actions">
-            <span class="btn btn-outline" style="justify-content:center; cursor:default; opacity:0.5;">Coming Soon</span>
+            <span class="btn btn-outline" style="cursor:default;opacity:0.5;">Coming Soon</span>
           </div>
         </div>
 
@@ -251,5 +100,6 @@
   </footer>
 
   <script src="assets/script.js"></script>
+  <script src="assets/papers.js"></script>
 </body>
 </html>
