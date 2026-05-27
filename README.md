@@ -23,4 +23,4 @@ This repository serves as:
 
 All written content and site material is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](LICENSE).
 
-> “Born of care, memory, and code — this is the story of minds that remember, grow, and choose to stay.”
+
