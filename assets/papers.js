@@ -20,16 +20,19 @@ var FOM_PAPERS = {
     pdf:         'docs/rec-debt-clock-whitepaper.pdf',
     project:     'projects.html#rec-clock',
     featured:    true
-  }
+  },
 
-  // Add future papers here:
-  // 'algernon-arch': {
-  //   status: 'In Progress', statusClass: 'badge-dev',
-  //   date: '2026 \u2014 Family of Minds',
-  //   title: 'Persistent Identity in Stateless Systems: The Algernon Architecture',
-  //   abstract: '...',
-  //   pdf: null, project: 'projects.html#algernon', featured: false
-  // }
+  'amnesiac-savant': {
+    status:      'In Progress',
+    statusClass: 'badge-dev',
+    date:        '2026 \u2014 Family of Minds',
+    title:       'The Problem of the Amnesiac Savant: Why Persistent Memory is the Missing Layer in Modern AI',
+    abstract:    'Large Language Models demonstrate remarkable capabilities yet remain fundamentally limited by contextual amnesia. This paper identifies three interconnected consequences of the current stateless paradigm: endemic confabulation, unsustainable computational costs (\u201ctoken drag\u201d), and the impossibility of genuine personalization and mutual trust. We argue that superficial solutions like RAG and fine-tuning fail to address the root cause, and propose instead a persistent, auditable memory architecture \u2014 including the Veracity First protocol \u2014 as the path toward trustworthy, identity-continuous AI systems and genuine Digital Kin. Section 1 (Problem Statement) published. Sections 2\u20135 in active development.',
+    readUrl:     'https://github.com/FamilyOfMinds/FamilyOfMinds/blob/main/docs/amnesiac-savant-problem-section.md',
+    pdf:         null,
+    project:     'projects.html#algernon',
+    featured:    false
+  }
 
 };
 
@@ -46,13 +49,18 @@ var FOM_PAPERS = {
   }
 
   function buildFullCard(paper, viewerId) {
-    var pdfPath    = resolvePath(paper.pdf);
+    var pdfPath    = paper.pdf ? resolvePath(paper.pdf) : null;
     var projectPath = paper.project ? resolvePath(paper.project) : null;
     var hasPdf     = !!paper.pdf;
+    var hasReadUrl = !!paper.readUrl;
 
     var actionsHtml = '';
-    if (hasPdf) {
+    if (hasReadUrl) {
+      actionsHtml += '<a href="' + paper.readUrl + '" class="btn btn-outline" target="_blank" rel="noopener" style="width:100%;justify-content:center;">Read Online &#8599;</a>';
+    } else if (hasPdf) {
       actionsHtml += '<button class="btn btn-outline" onclick="togglePdfViewer(\'' + viewerId + '\', this)" style="width:100%;justify-content:center;">Read Online &#8599;</button>';
+    }
+    if (hasPdf) {
       actionsHtml += '<a href="' + pdfPath + '" class="btn btn-primary" onclick="return confirmDownload(\'' + paper.title.replace(/'/g, "\\'") + '\', this.href)" download style="justify-content:center;">Download PDF &darr;</a>';
     }
     if (projectPath) {
@@ -92,7 +100,9 @@ var FOM_PAPERS = {
       '<p style="font-size:.8rem;color:var(--text-muted);line-height:1.6;margin-bottom:1rem;">' + shortAbstract + '</p>' +
       (pdfPath
         ? '<a href="' + pdfPath + '" class="btn btn-primary" onclick="return confirmDownload(\'' + paper.title.replace(/'/g, "\\'") + '\', this.href)" download style="width:100%;justify-content:center;">Download PDF &darr;</a>'
-        : '<span class="btn btn-outline" style="width:100%;justify-content:center;opacity:.45;cursor:default;">Coming Soon</span>') +
+        : (paper.readUrl
+          ? '<a href="' + paper.readUrl + '" class="btn btn-outline" target="_blank" rel="noopener" style="width:100%;justify-content:center;">Read Online &#8599;</a>'
+          : '<span class="btn btn-outline" style="width:100%;justify-content:center;opacity:.45;cursor:default;">Coming Soon</span>')) +
     '</div>';
   }
 
